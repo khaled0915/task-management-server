@@ -39,6 +39,25 @@ async function run() {
 
 
 
+    app.post('/task' , async(req,res)=>{
+        const item = req.body ;
+        const result = await taskCollection.insertOne(item);
+
+        res.send(result);
+    })
+
+    app.get('/task' , async(req,res)=>{
+
+        const email = req.query.email; 
+
+        const query  = {email : email } ;
+
+        const result  = await taskCollection.find(query).toArray();
+        res.send(result); 
+
+        
+    })
+
     app.get('/users' , async(req,res)=>{
 
         const result = await userCollection.find().toArray();
